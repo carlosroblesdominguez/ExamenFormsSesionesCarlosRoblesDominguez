@@ -1,21 +1,37 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
-
-# Create your models here.
+from django.contrib.auth.models import AbstractUser
 
 class Usuario(AbstractUser):
-    MANAGER=1
-    ARBITRO=2
-    ROLES=(
-        (MANAGER,'manager'),
-        (ARBITRO,'arbitro'),
+    CLIENTE = 1
+    STAFF = 2
+    ROLES = (
+        (CLIENTE, 'cliente'),
+        (STAFF, 'staff'),
     )
-    
-    rol=models.PositiveSmallIntegerField(
-        choices=ROLES,default=0
-    )
+    rol = models.PositiveSmallIntegerField(choices=ROLES, default=CLIENTE)
 
-class Manager(models.Model):
-    usuario=models.OneToOneField(Usuario,on_delete=models.CASCADE)
-class Arbitro(models.Model):
-    usuario=models.OneToOneField(Usuario,on_delete=models.CASCADE)
+class Cliente(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+
+class Staff(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+
+class Producto(models.Model):
+    nombre = models.CharField(max_length=100)
+    puede_tener_promociones = models.BooleanField()
+
+    def __str__(self):
+        return self.nombre
+
+class Promocion(models.Model):
+    nombre = models.CharField(max_length=100, unique=True)
+    descripcion = models.TextField()
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    usuarios = models.ManyToManyField(Usuario)
+    descuento = models.IntegerField()
+    fecha_inicio = models.DateField()
+    fecha_fin = models.DateField()
+    esta_activa = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.nombre

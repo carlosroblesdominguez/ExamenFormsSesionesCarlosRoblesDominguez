@@ -1,12 +1,21 @@
 {% extends "examen_forms_sesiones/base.html" %}
+{% block title %}Login{% endblock %}
 
-{% block contenido %}
-    <form action="{% url 'login' %}" method="POST">
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <h2 class="mb-4 text-center">Login</h2>
 
-        {% load django_bootstrap5 %}
-        {% csrf_token %}
+        <form action="{% url 'login' %}" method="post">
+            {% load django_bootstrap5 %}
+            {% csrf_token %}
 
-        {% bootstrap_form form %}
-        {% bootstrap_button "Enviar" button_type="submit" button_class="btn-primary" %}
-    </form>
+            <!-- Renderiza todo el formulario con Bootstrap -->
+            {% bootstrap_form form %}
+
+            <!-- Botón enviar -->
+            {% bootstrap_button "Enviar" button_type="submit" button_class="btn-primary w-100" %}
+        </form>
+    </div>
+</div>
 {% endblock %}

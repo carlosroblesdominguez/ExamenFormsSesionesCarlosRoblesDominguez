@@ -1,9 +1,30 @@
-{% extends './base.html' %}
-
+{% extends "examen_forms_sesiones/base.html" %}
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-<h2>Bienvenido al examen de Django</h2>
-<p>Esta es la página principal de tu proyecto de Forms y Sesiones.</p>
+<div class="text-center mt-5">
+    <h1>Examen de Forms y Sesiones</h1>
+    <p class="lead">Gestiona tus promociones, usuarios y más desde esta aplicación.</p>
+    
+    {% if request.session.fecha_inicio %}
+        <div class="alert alert-info mt-4">
+            Fecha y hora de tu primera visita a la página: {{ request.session.fecha_inicio }}
+        </div>
+    {% endif %}
 
+    <div class="mt-4">
+        {% if user.is_authenticated %}
+            {% if perms.examen_forms_sesiones.add_promocion %}
+                <a href="{% url 'promocion_create' %}" class="btn btn-primary me-2">Crear Promoción</a>
+            {% endif %}
+            {% if perms.examen_forms_sesiones.view_promocion %}
+                <a href="{% url 'lista_promociones' %}" class="btn btn-success me-2">Listar Promociones</a>
+            {% endif %}
+        {% endif %}
+        {% if not user.is_authenticated %}
+            <a href="{% url 'signup' %}" class="btn btn-secondary me-2">Registrarse</a>
+            <a href="{% url 'login' %}" class="btn btn-secondary">Iniciar Sesion</a>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
