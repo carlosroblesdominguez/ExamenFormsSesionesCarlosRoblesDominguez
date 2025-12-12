@@ -141,6 +141,7 @@ def ensayoclinico_buscar(request):
         "formulario": formulario,
         "ensayos_clinicos": ensayos_clinicos
     })
+    
 # ----------------------------
 # Editar Ensayo Clínico
 # ----------------------------
