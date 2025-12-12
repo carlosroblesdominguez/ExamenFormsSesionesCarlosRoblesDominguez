@@ -111,6 +111,15 @@ def ensayoclinico_buscar(request):
     """
     # Obtener todos los ensayos clínicos inicialmente
     ensayos_clinicos = EnsayoClinico.objects.all()
+    
+    # Filtrado según el rol del usuario
+    usuario = request.user
+    if usuario.es_investigador():
+        investigador = Investigador.objects.get(usuario=usuario)
+        ensayos_clinicos = ensayos_clinicos.filter(creado_por=investigador)
+    elif usuario.es_paciente():
+        paciente = Paciente.objects.get(usuario=usuario)
+        ensayos_clinicos = ensayos_clinicos.filter(pacientes=paciente)
 
     # Procesar el formulario de búsqueda
     formulario = EnsayoClinicoBusquedaForm(request.GET or None)

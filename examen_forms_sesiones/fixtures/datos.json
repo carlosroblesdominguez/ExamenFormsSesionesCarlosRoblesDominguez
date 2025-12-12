@@ -1,0 +1,900 @@
+[
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2025-12-12T08:05:19.103Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "1",
+        "object_repr": "Grupo Pacientes",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2025-12-12T08:05:36.951Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "2",
+        "object_repr": "Grupo Investigadores",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2025-12-12T08:08:49.719Z",
+        "user": 1,
+        "content_type": 6,
+        "object_id": "1",
+        "object_repr": "Pil Serie 1",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2025-12-12T08:12:29.860Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "3",
+        "object_repr": "Lola",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2025-12-12T08:12:29.860Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "2",
+        "object_repr": "Pepe",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2025-12-12T08:13:53.699Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "4",
+        "object_repr": "Lola",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2025-12-12T08:14:05.696Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "2",
+        "object_repr": "Grupo_Investigadores",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+        "action_time": "2025-12-12T08:14:12.445Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "1",
+        "object_repr": "Grupo_Pacientes",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+        "action_time": "2025-12-12T08:16:36.780Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "2",
+        "object_repr": "Investigadores",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+        "action_time": "2025-12-12T08:16:40.747Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "1",
+        "object_repr": "Pacientes",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+        "action_time": "2025-12-12T08:18:59.046Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "5",
+        "object_repr": "Lola",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+        "action_time": "2025-12-12T08:22:35.036Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "6",
+        "object_repr": "Lola",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+        "action_time": "2025-12-12T08:42:05.918Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "7",
+        "object_repr": "Lola",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2025-12-12T08:43:37.311Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "8",
+        "object_repr": "Lola",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2025-12-12T08:43:53.619Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "8",
+        "object_repr": "Lola",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2025-12-12T08:52:38.730Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "9",
+        "object_repr": "Lola",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2025-12-12T08:55:51.047Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "10",
+        "object_repr": "Lola",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+        "action_time": "2025-12-12T08:59:10.226Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "11",
+        "object_repr": "Lola",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+        "action_time": "2025-12-12T09:11:27.068Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "2",
+        "object_repr": "Lola",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Edad\"]}}]"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 4,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 4,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 4,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 4,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 5,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 5,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 5,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 5,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add farmaco",
+        "content_type": 6,
+        "codename": "add_farmaco"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change farmaco",
+        "content_type": 6,
+        "codename": "change_farmaco"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete farmaco",
+        "content_type": 6,
+        "codename": "delete_farmaco"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view farmaco",
+        "content_type": 6,
+        "codename": "view_farmaco"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 7,
+        "codename": "add_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 7,
+        "codename": "change_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 7,
+        "codename": "delete_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view user",
+        "content_type": 7,
+        "codename": "view_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add investigador",
+        "content_type": 8,
+        "codename": "add_investigador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change investigador",
+        "content_type": 8,
+        "codename": "change_investigador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete investigador",
+        "content_type": 8,
+        "codename": "delete_investigador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view investigador",
+        "content_type": 8,
+        "codename": "view_investigador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add paciente",
+        "content_type": 9,
+        "codename": "add_paciente"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change paciente",
+        "content_type": 9,
+        "codename": "change_paciente"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete paciente",
+        "content_type": 9,
+        "codename": "delete_paciente"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view paciente",
+        "content_type": 9,
+        "codename": "view_paciente"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add ensayo clinico",
+        "content_type": 10,
+        "codename": "add_ensayoclinico"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change ensayo clinico",
+        "content_type": 10,
+        "codename": "change_ensayoclinico"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete ensayo clinico",
+        "content_type": 10,
+        "codename": "delete_ensayoclinico"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view ensayo clinico",
+        "content_type": 10,
+        "codename": "view_ensayoclinico"
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "Pacientes",
+        "permissions": [
+            40,
+            24
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+        "name": "Investigadores",
+        "permissions": [
+            37,
+            38,
+            39,
+            40,
+            21,
+            22,
+            23,
+            24
+        ]
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "examen_forms_sesiones",
+        "model": "farmaco"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "examen_forms_sesiones",
+        "model": "usuario"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "examen_forms_sesiones",
+        "model": "investigador"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "examen_forms_sesiones",
+        "model": "paciente"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+        "app_label": "examen_forms_sesiones",
+        "model": "ensayoclinico"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "2um20kce9eps8ibu7ytdbbt85zdev12s",
+    "fields": {
+        "session_data": "eyJmZWNoYV9pbmljaW8iOiIxMi8xMi8yMDI1IDExOjA4In0:1vU04D:WfTNT8u5mGi43BRmenv1XD-4RoP-HyrMzHYKmAIfDDI",
+        "expire_date": "2025-12-26T10:08:05.041Z"
+    }
+},
+{
+    "model": "examen_forms_sesiones.usuario",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$nZqiYtEmCrraiuMsPMicIB$ZwX2qmbdq5fnWpwbrPJ9qrIB3reH5SQVYlt+EzZKAvs=",
+        "last_login": "2025-12-12T09:11:18.622Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@admin.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-12-12T08:00:42.106Z",
+        "rol": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "examen_forms_sesiones.usuario",
+    "pk": 12,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$xcWVvqfrRvAj9ZS3A8v1S3$pA+nrMdRvBPOp/fl9wfezs3I7FEFGKuyoxt1xAXkTLQ=",
+        "last_login": "2025-12-12T10:07:37.411Z",
+        "is_superuser": false,
+        "username": "Lola",
+        "first_name": "",
+        "last_name": "",
+        "email": "lola@hotmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-12-12T09:00:23.944Z",
+        "rol": 1,
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "examen_forms_sesiones.usuario",
+    "pk": 13,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$p9mMVD9TGJJfAV7uYF2YvE$DbJ3uPlPrNelLtCkLCMDmmhuXcvuVsVGPuiKd60ttRI=",
+        "last_login": "2025-12-12T09:47:02.055Z",
+        "is_superuser": false,
+        "username": "Pepe",
+        "first_name": "",
+        "last_name": "",
+        "email": "pepe@hotmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-12-12T09:02:38.661Z",
+        "rol": 2,
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "examen_forms_sesiones.usuario",
+    "pk": 14,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$8dMTbWkwxWQQOjUVjEl5ZC$hJKJOc6TIMgJQxaQ6hzoeS+1Tkn4Ir9gsRkPUhz5YVg=",
+        "last_login": "2025-12-12T10:07:04.733Z",
+        "is_superuser": false,
+        "username": "Marcos",
+        "first_name": "",
+        "last_name": "",
+        "email": "marcos@hotmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-12-12T09:31:55.568Z",
+        "rol": 2,
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "examen_forms_sesiones.usuario",
+    "pk": 15,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$9Uxzmh5CtDLjuFuHPcoOhV$raXWJbzaEDYCeCRwoBC4CK5Zqac22fFS9DF3bUnflyA=",
+        "last_login": "2025-12-12T10:07:54.860Z",
+        "is_superuser": false,
+        "username": "Manuel",
+        "first_name": "",
+        "last_name": "",
+        "email": "manu@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-12-12T09:46:39.002Z",
+        "rol": 1,
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "examen_forms_sesiones.paciente",
+    "pk": 2,
+    "fields": {
+        "usuario": 12,
+        "edad": 24
+    }
+},
+{
+    "model": "examen_forms_sesiones.paciente",
+    "pk": 3,
+    "fields": {
+        "usuario": 15,
+        "edad": null
+    }
+},
+{
+    "model": "examen_forms_sesiones.investigador",
+    "pk": 1,
+    "fields": {
+        "usuario": 13
+    }
+},
+{
+    "model": "examen_forms_sesiones.investigador",
+    "pk": 2,
+    "fields": {
+        "usuario": 14
+    }
+},
+{
+    "model": "examen_forms_sesiones.farmaco",
+    "pk": 1,
+    "fields": {
+        "nombre": "Pil Serie 1",
+        "apto_para_ensayos": true
+    }
+},
+{
+    "model": "examen_forms_sesiones.ensayoclinico",
+    "pk": 1,
+    "fields": {
+        "nombre": "Pil Serie 1",
+        "descripcion": "pil serie 1",
+        "farmaco": 1,
+        "nivel_seguimiento": 7,
+        "fecha_inicio": "2025-12-12",
+        "fecha_fin": "2026-01-11",
+        "activo": true,
+        "creado_por": 1,
+        "pacientes": [
+            2
+        ]
+    }
+},
+{
+    "model": "examen_forms_sesiones.ensayoclinico",
+    "pk": 2,
+    "fields": {
+        "nombre": "Pil Serie 1 (2)",
+        "descripcion": "pil serie 1",
+        "farmaco": 1,
+        "nivel_seguimiento": 4,
+        "fecha_inicio": "2025-12-12",
+        "fecha_fin": "2025-12-30",
+        "activo": true,
+        "creado_por": 2,
+        "pacientes": [
+            3
+        ]
+    }
+}
+]
