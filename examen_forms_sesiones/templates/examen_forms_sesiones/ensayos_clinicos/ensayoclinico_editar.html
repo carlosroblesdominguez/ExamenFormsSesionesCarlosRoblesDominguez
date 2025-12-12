@@ -2,7 +2,7 @@
 {% block title %}Editar ensayo clinico{% endblock %}
 
 {% block content %}
-<h2>Editar Ensayo Clínico: {{ ensayoclinico.nombre }}</h2>
+<h2>Editar Ensayo Clínico: {{ ensayoclinico.id }}</h2>
 <form method="POST">
     {% csrf_token %}
     {% for field in formulario %}
@@ -17,6 +17,6 @@
         </div>
     {% endfor %}
     <button type="submit" class="btn btn-success">Guardar Cambios</button>
-    <a href="{% url 'lista_promociones' %}" class="btn btn-secondary">Cancelar</a>
+    <a href="{% url 'lista_ensayos_clinicos' %}" class="btn btn-secondary">Cancelar</a>
 </form>
 {% endblock %}

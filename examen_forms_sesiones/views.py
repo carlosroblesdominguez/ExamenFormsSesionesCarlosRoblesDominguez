@@ -1,4 +1,4 @@
-from email.headerregistry import Group
+from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.db.models import Prefetch, Count, Max, Q
 from django.contrib import messages
@@ -33,8 +33,6 @@ def registrar_usuario(request):
                 user.groups.add(Group.objects.get(name='Pacientes'))
                 
                 paciente=Paciente.objects.create(usuario=user)
-                
-                edad=user.edad or "0"
                 
                 paciente.save()
             elif(rol==Usuario().INVESTIGADOR):
@@ -99,23 +97,12 @@ def ensayoclinico_create(request):
 # Leer / Buscar Ensayos Clínicos
 # ----------------------------
 '''
-Filtros que deben implementar:
-Que contenga un texto en nombre o descripción
-
-Fecha desde y fecha hasta del inicio del ensayo a la indicada
-
-Nivel de seguimiento mayo a un valor
-
-Selección múltiple de pacientes
-
-Ensayos activos
-
+Búsqueda avanzada con los siguientes filtros:
 Restricción por usuario logueado:
-Investigador: solo ve los ensayos que haya creado
 
+Investigador: solo ve los ensayos que haya creado,
 Paciente: solo ve ensayos en los que está incluido
 '''
-
 @permission_required('examen_forms_sesiones.view_ensayoclinico')
 def ensayoclinico_buscar(request):
     """
@@ -124,14 +111,6 @@ def ensayoclinico_buscar(request):
     """
     # Obtener todos los ensayos clínicos inicialmente
     ensayos_clinicos = EnsayoClinico.objects.all()
-
-    # Aplicar restricciones según el rol del usuario
-    if request.user.usuario.rol == Usuario.INVESTIGADOR:
-        investigador = Investigador.objects.get(usuario=request.user)
-        ensayos_clinicos = ensayos_clinicos.filter(creado_por=investigador)
-    elif request.user.usuario.rol == Usuario.PACIENTE:
-        paciente = Paciente.objects.get(usuario=request.user)
-        ensayos_clinicos = ensayos_clinicos.filter(pacientes=paciente)
 
     # Procesar el formulario de búsqueda
     formulario = EnsayoClinicoBusquedaForm(request.GET or None)
@@ -186,7 +165,7 @@ def ensayoclinico_editar(request, ensayoclinico_id):
                 formulario.save()
                 nombre = formulario.cleaned_data.get('nombre')
                 messages.success(request, f"La promoción '{nombre}' se ha modificado correctamente")
-                return redirect('lista_promociones')
+                return redirect('lista_ensayos_clinicos')
             except Exception as e:
                 print("Error al editar promoción:", e)
 

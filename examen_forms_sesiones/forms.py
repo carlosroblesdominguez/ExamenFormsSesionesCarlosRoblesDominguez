@@ -24,9 +24,22 @@ class EnsayoClinicoModelForm(forms.ModelForm):
         required=False
     )
 
+    '''
+    class EnsayoClinico(models.Model):
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField()
+    farmaco = models.ForeignKey(Farmaco, on_delete=models.CASCADE)
+    pacientes = models.ManyToManyField('Paciente')
+    nivel_seguimiento = models.IntegerField()
+    fecha_inicio = models.DateField()
+    fecha_fin = models.DateField()
+    activo = models.BooleanField(default=True)
+    creado_por = models.ForeignKey('Investigador', on_delete=models.CASCADE)  
+    '''
+
     class Meta:
         model = EnsayoClinico
-        fields = ['nombre', 'descripcion', 'farmaco', 'pacientes', 'nivel_seguimiento', 'fecha_inicio', 'fecha_fin', 'activo']
+        fields = ['nombre', 'descripcion', 'farmaco', 'pacientes', 'nivel_seguimiento', 'fecha_inicio', 'fecha_fin', 'activo', 'creado_por']
         labels = {
             'nombre': 'Nombre',
             'descripcion': 'Descripción',
@@ -36,6 +49,7 @@ class EnsayoClinicoModelForm(forms.ModelForm):
             'fecha_inicio': 'Fecha de inicio',
             'fecha_fin': 'Fecha de fin',
             'activo': 'Está activo',
+            'creado_por': 'Creado por',
         }
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
@@ -46,6 +60,7 @@ class EnsayoClinicoModelForm(forms.ModelForm):
             'fecha_inicio': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'fecha_fin': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'activo': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'creado_por': forms.Select(attrs={'class': 'form-select'}),
         }
 
     def clean(self):
@@ -63,13 +78,13 @@ class EnsayoClinicoModelForm(forms.ModelForm):
         if nombre and EnsayoClinico.objects.filter(nombre=nombre).exclude(id=ensayoclinico_id).exists():
             self.add_error('nombre', "Ya existe un ensayo clínico con este nombre.")
 
-        # Descripción mínima 100 caracteres
-        if descripcion and len(descripcion) < 100:
-            self.add_error('descripcion', "La descripción debe tener al menos 100 caracteres.")
+        # Descripción no puede ser mayor o igual a 100 caracteres
+        if descripcion and len(descripcion) >= 100:
+            self.add_error('descripcion', "La descripción no puede tener 100 caracteres o más.")
 
-        # Farmaco permite promociones
-        if farmaco and not farmaco.puede_tener_promociones:
-            self.add_error('farmaco', "Este fármaco no permite promociones.")
+        # Farmaco apto para ensayos
+        if farmaco and not farmaco.apto_para_ensayos:
+            self.add_error('farmaco', "Este fármaco no permite ensayos clínicos.")
 
         # Pacientes mayores de edad
         if pacientes:

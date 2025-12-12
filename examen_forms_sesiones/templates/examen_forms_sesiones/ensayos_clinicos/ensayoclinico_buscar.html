@@ -1,6 +1,7 @@
 {% extends "examen_forms_sesiones/base.html" %}
 {% block title %}Buscar ensayos clínicos{% endblock %}
-
+{% load django_bootstrap5 %}
+{% load bootstrap_icons %}
 {% block content %}
 <h2>Buscar Ensayos Clínicos</h2>
 <form method="GET" class="mb-4">
@@ -24,6 +25,7 @@
         <tr>
             <th>Nombre</th>
             <th>Descripcion</th>
+            <th>Creado Por</th>
             <th>Farmaco</th>
             <th>Pacientes</th>
             <th>Fecha Inicio</th>
@@ -37,20 +39,43 @@
         <tr>
             <td>{{ ensayo.nombre }}</td>
             <td>{{ ensayo.descripcion }}</td>
-            <td>
-                {% for u in ensayo.farmaco.all %}
-                    {{ u.nombre }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-            </td>
+            <td>{{ ensayo.creado_por }}</td>
+            <td>{{ ensayo.farmaco.nombre }}</td>
             <td>{{ ensayo.pacientes.count }}</td>
             <td>{{ ensayo.fecha_inicio }}</td>
             <td>{{ ensayo.fecha_fin }}</td>
             <td>{{ ensayo.activo }}</td>
             <td>{{ ensayo.nivel_seguimiento }}</td>
+            <td>
+                {% if user.es_investigador %}
+                    <div class="row btn-group">
+                        <div class="mb-2">
+                            <button type="button" 
+                                    class="btn btn-outline-primary"> 
+                                    <a href="{% url 'ensayoclinico_editar' ensayo.id %}"><span>{% bs_icon 'pencil' %}</span></a>
+                            </button>
+                        </div>
+                        <div class="mb-2">
+                            <form action = "{% url 'ensayoclinico_eliminar' ensayo.id %}" method = "post"> 
+                                {% csrf_token %}
+                                <button class="btn btn-danger" onclick="return eliminar();" type="submit">
+                                    <span>{% bs_icon 'trash' %}</span>
+                                </button> 
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+            </td>
         </tr>
         {% empty %}
         <tr><td colspan="8" class="text-center">No hay ensayos clínicos</td></tr>
         {% endfor %}
     </tbody>
 </table>
+<script>
+    function eliminar(){
+        var respuesta = confirm("¿Estás seguro de que deseas eliminar este ensayo clínico?");
+        return respuesta;
+    }
+</script>
 {% endblock %}

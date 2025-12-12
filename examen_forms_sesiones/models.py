@@ -9,14 +9,28 @@ class Usuario(AbstractUser):
         (INVESTIGADOR, 'investigador'),
     )
     rol = models.PositiveSmallIntegerField(choices=ROLES, default=PACIENTE)
+    
+    # FUNCIONES PERSONALIZADAS PARA SABER EL ROL DEL USUARIO (PERMISOS)
+    def es_paciente(self):
+        return self.groups.filter(name='Pacientes').exists()
+    
+    def es_investigador(self):
+        return self.groups.filter(name='Investigadores').exists()
+
 
 # campo edad obligatorio para el registro de pacientes
 class Paciente(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
-    edad = models.PositiveIntegerField(null=True, blank=True)
-
+    edad = models.IntegerField(null=True, blank=True)
+    
+    def __str__(self):
+       return self.usuario.username
+   
 class Investigador(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+
+    def __str__(self):
+       return self.usuario.username
 
 class Farmaco(models.Model):
    nombre = models.CharField(max_length=100)
@@ -34,5 +48,6 @@ class EnsayoClinico(models.Model):
    fecha_fin = models.DateField()
    activo = models.BooleanField(default=True)
    creado_por = models.ForeignKey('Investigador', on_delete=models.CASCADE)  
+   
    def __str__(self):
        return self.nombre
