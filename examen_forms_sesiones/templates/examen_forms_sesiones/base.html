@@ -18,11 +18,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     {% if user.is_authenticated %}
-                        {% if perms.examen_forms_sesiones.add_promocion %}
-                            <li><a href="{% url 'promocion_create' %}" class="btn btn-primary me-2">Crear Promoción</a></li>
+                        {% if perms.examen_forms_sesiones.add_ensayoclinico %}
+                            <li><a href="{% url 'ensayoclinico_create' %}" class="btn btn-primary me-2">Crear Ensayo Clínico</a></li>
                         {% endif %}
-                        {% if perms.examen_forms_sesiones.view_promocion %}
-                            <li><a href="{% url 'lista_promociones' %}" class="btn btn-success me-2">Listar Promociones</a></li>
+                        {% if perms.examen_forms_sesiones.view_ensayoclinico %}
+                            <li><a href="{% url 'lista_ensayos_clinicos' %}" class="btn btn-success me-2">Listar Ensayos Clínicos</a></li>
                         {% endif %}
                     {% endif %}
                 </ul>

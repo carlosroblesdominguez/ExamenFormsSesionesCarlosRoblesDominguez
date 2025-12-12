@@ -1,0 +1,56 @@
+{% extends "examen_forms_sesiones/base.html" %}
+{% block title %}Buscar ensayos clínicos{% endblock %}
+
+{% block content %}
+<h2>Buscar Ensayos Clínicos</h2>
+<form method="GET" class="mb-4">
+    <div class="row">
+        {% for field in formulario %}
+            <div class="col-md-4 mb-3">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+        {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+{% if texto_busqueda %}
+<div class="alert alert-info">Filtros aplicados: {{ texto_busqueda }}</div>
+{% endif %}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Farmaco</th>
+            <th>Pacientes</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Activo</th>
+            <th>Nivel Seguimiento</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ensayo in ensayos_clinicos %}
+        <tr>
+            <td>{{ ensayo.nombre }}</td>
+            <td>{{ ensayo.descripcion }}</td>
+            <td>
+                {% for u in ensayo.farmaco.all %}
+                    {{ u.nombre }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+            <td>{{ ensayo.pacientes.count }}</td>
+            <td>{{ ensayo.fecha_inicio }}</td>
+            <td>{{ ensayo.fecha_fin }}</td>
+            <td>{{ ensayo.activo }}</td>
+            <td>{{ ensayo.nivel_seguimiento }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" class="text-center">No hay ensayos clínicos</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

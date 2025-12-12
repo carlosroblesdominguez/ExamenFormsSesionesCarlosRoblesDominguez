@@ -16,10 +16,10 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='index'), name='logout'),
 
     # ----------------------------
-    # CRUD Promociones
+    # CRUD Ensayos Clínicos
     # ----------------------------
-    path('promociones/crear/', views.promocion_create, name='promocion_create'),
-    path('promociones/listar/', views.promocion_buscar, name='lista_promociones'),
-    path('promociones/editar/<int:promocion_id>/', views.promocion_editar, name='promocion_editar'),
-    path('promociones/eliminar/<int:promocion_id>/', views.promocion_eliminar, name='promocion_eliminar'),
+    path('ensayos_clinicos/crear/', views.ensayoclinico_create, name='ensayoclinico_create'),
+    path('ensayos_clinicos/listar/', views.ensayoclinico_buscar, name='lista_ensayos_clinicos'),
+    path('ensayos_clinicos/editar/<int:ensayoclinico_id>/', views.ensayoclinico_editar, name='ensayoclinico_editar'),
+    path('ensayos_clinicos/eliminar/<int:ensayoclinico_id>/', views.ensayoclinico_eliminar, name='ensayoclinico_eliminar'),
 ]

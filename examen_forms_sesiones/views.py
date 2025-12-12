@@ -1,3 +1,4 @@
+from email.headerregistry import Group
 from django.shortcuts import render, redirect
 from django.db.models import Prefetch, Count, Max, Q
 from django.contrib import messages
@@ -16,6 +17,9 @@ def index(request):
 # ----------------
 # Autenticacion 
 # ----------------
+
+# django.core.exceptions.FieldError: Unknown field(s) (edad) specified for Usuario
+
 def registrar_usuario(request):
     if request.method=='POST':
         formularioRegistro = RegistroForm(request.POST)
@@ -23,42 +27,51 @@ def registrar_usuario(request):
             user=formularioRegistro.save()
             rol=int(formularioRegistro.cleaned_data.get('rol'))
             
-            if(rol==Usuario().CLIENTE):
-                cliente=Cliente.objects.create(usuario=user)
-                cliente.save()
-            elif(rol==Usuario().STAFF):
-                cliente=Staff.objects.create(usuario=user)
-                cliente.save()
+            # perfil de paciente con los campos obligatorios
+            if(rol==Usuario().PACIENTE):
+                # Asignar paciente a grupo Pacientes ya existente
+                user.groups.add(Group.objects.get(name='Pacientes'))
+                
+                paciente=Paciente.objects.create(usuario=user)
+                
+                edad=user.edad or "0"
+                
+                paciente.save()
+            elif(rol==Usuario().INVESTIGADOR):
+                # Asignar investigador a grupo Investigadores ya existente
+                user.groups.add(Group.objects.get(name='Investigadores'))
+                
+                investigador=Investigador.objects.create(usuario=user)
+                investigador.save()
             return redirect('login')
     else:
         formularioRegistro=RegistroForm()
     return render(request, 'registration/signup.html',{'formularioRegistro':formularioRegistro})
 
 # ----------------------------
-# Crear Promocion
+# Crear Ensayo Clínico
 # ----------------------------
-def promocion_create_valid(formulario):
+def ensayoclinico_create_valid(formulario):
     """
-    Valida y guarda el formulario de promoción.
+    Valida y guarda el formulario de ensayo clínico.
     Devuelve True si se guardó correctamente, False si hubo error.
     """
-    promocion_creada = False
+    ensayoclinico_creado = False
     if formulario.is_valid():
         try:
             formulario.save()
-            promocion_creada = True
+            ensayoclinico_creado = True
         except Exception as e:
             # Mostrar el error en consola
-            print("Error al guardar promocion: ", e)
+            print("Error al guardar ensayo clínico: ", e)
     else:
         # Mostrar errores de validación
         print("Formulario no válido: ", formulario.errors)
-    return promocion_creada
-
-@permission_required('examen_forms_sesiones.add_promocion')
-def promocion_create(request):
+    return ensayoclinico_creado
+@permission_required('examen_forms_sesiones.add_ensayoclinico')
+def ensayoclinico_create(request):
     """
-    Vista para crear una nueva promoción.
+    Vista para crear un nuevo ensayo clínico.
     - Si es GET: muestra el formulario vacío.
     - Si es POST: valida y guarda los datos del formulario.
     """
@@ -67,109 +80,105 @@ def promocion_create(request):
         datosFormulario = request.POST
 
     # Creamos el formulario (vacío o con datos)
-    formulario = PromocionModelForm(datosFormulario)
+    formulario = EnsayoClinicoModelForm(datosFormulario)
 
-    # Si es POST intentamos guardar la promoción
+    # Si es POST intentamos guardar el ensayo clínico
     if request.method == "POST":
-        promocion_creada = promocion_create_valid(formulario)
-        if promocion_creada:
+        ensayoclinico_creado = ensayoclinico_create_valid(formulario)
+        if ensayoclinico_creado:
             nombre = formulario.cleaned_data.get('nombre')
             # Mensaje de éxito
-            messages.success(request, f"La promoción '{nombre}' se ha creado correctamente")
-            # Redirigimos a la lista de promociones
-            return redirect('lista_promociones')
+            messages.success(request, f"El ensayo clínico '{nombre}' se ha creado correctamente")
+            # Redirigimos a la lista de ensayos clínicos
+            return redirect('lista_ensayos_clinicos')
 
     # Renderizamos el formulario
-    return render(request, 'examen_forms_sesiones/promociones/promocion_create.html', {"formulario": formulario})
+    return render(request, 'examen_forms_sesiones/ensayos_clinicos/ensayoclinico_create.html', {"formulario": formulario})
 
 # ----------------------------
-# Leer / Buscar Promociones
+# Leer / Buscar Ensayos Clínicos
 # ----------------------------
-@permission_required('examen_forms_sesiones.view_promocion')
-def promocion_buscar(request):
+'''
+Filtros que deben implementar:
+Que contenga un texto en nombre o descripción
+
+Fecha desde y fecha hasta del inicio del ensayo a la indicada
+
+Nivel de seguimiento mayo a un valor
+
+Selección múltiple de pacientes
+
+Ensayos activos
+
+Restricción por usuario logueado:
+Investigador: solo ve los ensayos que haya creado
+
+Paciente: solo ve ensayos en los que está incluido
+'''
+
+@permission_required('examen_forms_sesiones.view_ensayoclinico')
+def ensayoclinico_buscar(request):
     """
-    Vista para buscar/listar promociones con filtros avanzados:
-    - Texto en nombre/descripcion
-    - Fecha fin desde/hasta
-    - Descuento mínimo
-    - Selección de usuarios
-    - Promociones activas
+    Vista para buscar y listar ensayos clínicos.
+    Muestra un formulario de búsqueda y los resultados filtrados.
     """
-    mensaje_busqueda = ""
-    promociones = Promocion.objects.none()  # Por defecto lista vacía
-    formulario = PromocionModelForm(request.GET or None)
+    # Obtener todos los ensayos clínicos inicialmente
+    ensayos_clinicos = EnsayoClinico.objects.all()
 
-    if len(request.GET) > 0 and formulario.is_valid():
-        # Extraemos los datos del formulario
-        nombre_desc = formulario.cleaned_data.get('nombre')
-        fecha_fin_desde = request.GET.get('fecha_fin_desde', None)
-        fecha_fin_hasta = request.GET.get('fecha_fin_hasta', None)
-        descuento_min = formulario.cleaned_data.get('descuento')
-        usuarios = formulario.cleaned_data.get('usuarios')
-        esta_activa = formulario.cleaned_data.get('esta_activa')
+    # Aplicar restricciones según el rol del usuario
+    if request.user.usuario.rol == Usuario.INVESTIGADOR:
+        investigador = Investigador.objects.get(usuario=request.user)
+        ensayos_clinicos = ensayos_clinicos.filter(creado_por=investigador)
+    elif request.user.usuario.rol == Usuario.PACIENTE:
+        paciente = Paciente.objects.get(usuario=request.user)
+        ensayos_clinicos = ensayos_clinicos.filter(pacientes=paciente)
 
-        filtros_aplicados = []
-        filtros = Q()  # Objeto Q para filtros dinámicos
+    # Procesar el formulario de búsqueda
+    formulario = EnsayoClinicoBusquedaForm(request.GET or None)
+    if formulario.is_valid():
+        nombre = formulario.cleaned_data.get('nombre')
+        fecha_fin_desde = formulario.cleaned_data.get('fecha_fin_desde')
+        fecha_fin_hasta = formulario.cleaned_data.get('fecha_fin_hasta')
+        nivel_seguimiento = formulario.cleaned_data.get('nivel_seguimiento')
+        pacientes = formulario.cleaned_data.get('pacientes')
 
-        # Filtrar por texto en nombre o descripción
-        if nombre_desc:
-            filtros &= Q(nombre__icontains=nombre_desc) | Q(descripcion__icontains=nombre_desc)
-            filtros_aplicados.append(f"Texto: '{nombre_desc}'")
-        # Filtrar por fecha fin desde
+        # Aplicar filtros según los datos del formulario
+        if nombre:
+            ensayos_clinicos = ensayos_clinicos.filter(
+                Q(nombre__icontains=nombre) | Q(descripcion__icontains=nombre)
+            )
         if fecha_fin_desde:
-            filtros &= Q(fecha_fin__gte=fecha_fin_desde)
-            filtros_aplicados.append(f"Fecha fin desde: '{fecha_fin_desde}'")
-        # Filtrar por fecha fin hasta
+            ensayos_clinicos = ensayos_clinicos.filter(fecha_fin__gte=fecha_fin_desde)
         if fecha_fin_hasta:
-            filtros &= Q(fecha_fin__lte=fecha_fin_hasta)
-            filtros_aplicados.append(f"Fecha fin hasta: '{fecha_fin_hasta}'")
-        # Filtrar por descuento mínimo
-        if descuento_min is not None:
-            filtros &= Q(descuento__gte=descuento_min)
-            filtros_aplicados.append(f"Descuento ≥ {descuento_min}")
-        # Filtrar por usuarios seleccionados
-        if usuarios:
-            filtros &= Q(usuarios__in=usuarios)
-            filtros_aplicados.append(f"Usuarios seleccionados")
-        # Filtrar por promociones activas
-        if esta_activa is not None:
-            filtros &= Q(esta_activa=esta_activa)
-            filtros_aplicados.append(f"Activa: {esta_activa}")
+            ensayos_clinicos = ensayos_clinicos.filter(fecha_fin__lte=fecha_fin_hasta)
+        if nivel_seguimiento is not None:
+            ensayos_clinicos = ensayos_clinicos.filter(nivel_seguimiento__gte=nivel_seguimiento)
+        if pacientes:
+            for paciente in pacientes:
+                ensayos_clinicos = ensayos_clinicos.filter(pacientes=paciente)
 
-        # Aplicamos los filtros y eliminamos duplicados (many-to-many)
-        promociones = Promocion.objects.filter(filtros).distinct()
-        mensaje_busqueda = " | ".join(filtros_aplicados)
-
-        # Renderizamos resultados filtrados
-        return render(request, 'examen_forms_sesiones/promociones/promocion_buscar.html', {
-            "formulario": formulario,
-            "promociones": promociones,
-            "texto_busqueda": mensaje_busqueda
-        })
-
-    # Si no hay GET, mostramos la búsqueda vacía
-    return render(request, 'examen_forms_sesiones/promociones/promocion_buscar.html', {
+    # Renderizar la plantilla con el formulario y los resultados
+    return render(request, 'examen_forms_sesiones/ensayos_clinicos/ensayoclinico_buscar.html', {
         "formulario": formulario,
-        "promociones": promociones
+        "ensayos_clinicos": ensayos_clinicos
     })
-
 # ----------------------------
-# Editar Promocion
+# Editar Ensayo Clínico
 # ----------------------------
-@permission_required('examen_forms_sesiones.change_promocion')
-def promocion_editar(request, promocion_id):
+@permission_required('examen_forms_sesiones.change_ensayoclinico')
+def ensayoclinico_editar(request, ensayoclinico_id):
     """
-    Vista para editar una promoción existente
+    Vista para editar un ensayo clínico existente
     """
-    # Obtener la promoción a editar
-    promocion = Promocion.objects.get(id=promocion_id)
+    # Obtener el ensayo clínico a editar
+    ensayoclinico = EnsayoClinico.objects.get(id=ensayoclinico_id)
     datosFormulario = None
 
     if request.method == "POST":
         datosFormulario = request.POST
 
-    # Creamos el formulario con la instancia de la promoción
-    formulario = PromocionModelForm(datosFormulario, instance=promocion)
+    # Creamos el formulario con la instancia del ensayo clínico
+    formulario = EnsayoClinicoModelForm(datosFormulario, instance=ensayoclinico)
 
     if request.method == "POST":
         if formulario.is_valid():
@@ -182,24 +191,32 @@ def promocion_editar(request, promocion_id):
                 print("Error al editar promoción:", e)
 
     # Renderizamos formulario de edición
-    return render(request, 'examen_forms_sesiones/promociones/promocion_editar.html', {
+    return render(request, 'examen_forms_sesiones/ensayos_clinicos/ensayoclinico_editar.html', {
         "formulario": formulario,
-        "promocion": promocion
+        "ensayoclinico": ensayoclinico
     })
 
 # ----------------------------
-# Eliminar Promocion
+# Eliminar Ensayo Clínico
 # ----------------------------
-@permission_required('examen_forms_sesiones.delete_promocion')
-def promocion_eliminar(request, promocion_id):
+@permission_required('examen_forms_sesiones.delete_ensayoclinico')
+def ensayoclinico_eliminar(request, ensayoclinico_id):
     """
-    Vista para eliminar una promoción
+    Vista para eliminar un ensayo clínico existente
     """
-    promocion = Promocion.objects.get(id=promocion_id)
-    try:
-        promocion.delete()
-        messages.success(request, f"La promoción '{promocion.nombre}' ha sido eliminada")
-    except Exception as e:
-        print("Error al eliminar promoción:", e)
-    # Redirigimos a la lista
-    return redirect('lista_promociones')
+    # Obtener el ensayo clínico a eliminar
+    ensayoclinico = EnsayoClinico.objects.get(id=ensayoclinico_id)
+
+    if request.method == "POST":
+        nombre = ensayoclinico.nombre
+        try:
+            ensayoclinico.delete()
+            messages.success(request, f"El ensayo clínico '{nombre}' se ha eliminado correctamente")
+            return redirect('lista_ensayos_clinicos')
+        except Exception as e:
+            print("Error al eliminar ensayo clínico:", e)
+
+    # Renderizamos confirmación de eliminación
+    return render(request, 'examen_forms_sesiones/ensayos_clinicos/ensayoclinico_eliminar.html', {
+        "ensayoclinico": ensayoclinico
+    })

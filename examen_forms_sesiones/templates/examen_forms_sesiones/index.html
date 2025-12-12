@@ -4,7 +4,7 @@
 {% block content %}
 <div class="text-center mt-5">
     <h1>Examen de Forms y Sesiones</h1>
-    <p class="lead">Gestiona tus promociones, usuarios y más desde esta aplicación.</p>
+    <p class="lead">Gestiona tus ensayos clínicos, usuarios y más desde esta aplicación.</p>
     
     {% if request.session.fecha_inicio %}
         <div class="alert alert-info mt-4">
@@ -14,11 +14,11 @@
 
     <div class="mt-4">
         {% if user.is_authenticated %}
-            {% if perms.examen_forms_sesiones.add_promocion %}
-                <a href="{% url 'promocion_create' %}" class="btn btn-primary me-2">Crear Promoción</a>
+            {% if perms.examen_forms_sesiones.add_ensayoclinico %}
+                <a href="{% url 'ensayoclinico_create' %}" class="btn btn-primary me-2">Crear Ensayo Clínico</a>
             {% endif %}
-            {% if perms.examen_forms_sesiones.view_promocion %}
-                <a href="{% url 'lista_promociones' %}" class="btn btn-success me-2">Listar Promociones</a>
+            {% if perms.examen_forms_sesiones.view_ensayoclinico %}
+                <a href="{% url 'lista_ensayos_clinicos' %}" class="btn btn-success me-2">Listar Ensayos Clínicos</a>
             {% endif %}
         {% endif %}
         {% if not user.is_authenticated %}
